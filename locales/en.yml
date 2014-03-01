@@ -1,0 +1,17 @@
+en:
+  lita:
+    handlers:
+      retro:
+        help:
+          add_good_key: "retro :) TOPIC"
+          add_good_value: Add a positive topic for the next retrospective.
+          add_bad_key: "retro :( TOPIC"
+          add_bad_value: Add a negative topic for the next retrospective.
+          add_neutral_key: "retro :| TOPIC"
+          add_neutral_value: Add a neutral topic for the next retrospective.
+          list_value: List all topics for the next retrospective.
+          clear_value: Clear the retrospective topics.
+        added: "Added %{type} topic!"
+        topic: "%{type} topic from %{name}: %{topic}"
+        no_topics: There are no retrospective topics yet.
+        clear: Cleared all topics!
