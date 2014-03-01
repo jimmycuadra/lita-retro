@@ -1,5 +1,9 @@
 # lita-retro
 
+[![Build Status](https://travis-ci.org/jimmycuadra/lita-retro.png?branch=master)](https://travis-ci.org/jimmycuadra/lita-retro)
+[![Code Climate](https://codeclimate.com/github/jimmycuadra/lita-retro.png)](https://codeclimate.com/github/jimmycuadra/lita-retro)
+[![Coverage Status](https://coveralls.io/repos/jimmycuadra/lita-retro/badge.png)](https://coveralls.io/r/jimmycuadra/lita-retro)
+
 **lita-retro** helps manage topics for regular team retrospective meetings.
 
 ## Installation
