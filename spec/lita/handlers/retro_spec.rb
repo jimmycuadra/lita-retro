@@ -51,4 +51,14 @@ describe Lita::Handlers::Retro, lita_handler: true do
     send_command("retro list")
     expect(replies.last).to eq("There are no retrospective topics yet.")
   end
+
+  it "supports +/-/= syntax" do
+    send_command("retro + something good!")
+    send_command("retro - something bad!", as: bad_user)
+    send_command("retro = something neutral!", as: neutral_user)
+    send_command("retro list")
+    expect(replies.last).to include("Good topic from Test User: something good!")
+    expect(replies.last).to include("Bad topic from Bad User: something bad!")
+    expect(replies.last).to include("Neutral topic from Neutral User: something neutral!")
+  end
 end

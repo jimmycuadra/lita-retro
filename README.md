@@ -27,6 +27,8 @@ Sophie: Lita retro :| What are we supposed to do during downtime?
 Lita: Neutral topic added!
 ```
 
+Alternatively you could use `+`, `-`, and `=` instead of smiles.
+
 When it's time for the retro, ask Lita to list all the topics for you.
 
 ```

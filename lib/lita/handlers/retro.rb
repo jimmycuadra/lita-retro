@@ -1,15 +1,15 @@
 module Lita
   module Handlers
     class Retro < Handler
-      route /retro\s+:\)\s+(.+)/i, :add_good, command: true, help: {
+      route /retro\s+(?::\)|\+)\s+(.+)/i, :add_good, command: true, help: {
         t("help.add_good_key") => t("help.add_good_value")
       }
 
-      route /retro\s+:\(\s+(.+)/i, :add_bad, command: true, help: {
+      route /retro\s+(?::\(|\-)\s+(.+)/i, :add_bad, command: true, help: {
         t("help.add_bad_key") => t("help.add_bad_value")
       }
 
-      route /retro\s+:\|\s+(.+)/i, :add_neutral, command: true, help: {
+      route /retro\s+(?::\||\=)\s+(.+)/i, :add_neutral, command: true, help: {
         t("help.add_neutral_key") => t("help.add_neutral_value")
       }
 
