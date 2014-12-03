@@ -3,12 +3,17 @@ require "spec_helper"
 describe Lita::Handlers::Retro, lita_handler: true do
   let(:bad_user) { Lita::User.create(2, name: "Bad User") }
   let(:neutral_user) { Lita::User.create(3, name: "Neutral User") }
+  let(:retro_admin) do
+    user = Lita::User.create(3, name: "Retro Admin")
+    Lita::Authorization.new(registry.config).add_user_to_group!(user, :retro_admins)
+    user
+  end
 
-  it { routes_command("retro :) topic").to(:add_good) }
-  it { routes_command("retro :( topic").to(:add_bad) }
-  it { routes_command("retro :| topic").to(:add_neutral) }
-  it { routes_command("retro list").to(:list) }
-  it { routes_command("retro clear").to(:clear) }
+  it { is_expected.to route_command("retro :) topic").to(:add_good) }
+  it { is_expected.to route_command("retro :( topic").to(:add_bad) }
+  it { is_expected.to route_command("retro :| topic").to(:add_neutral) }
+  it { is_expected.to route_command("retro list").to(:list) }
+  it { is_expected.to route_command("retro clear").with_authorization_for(:retro_admins).to(:clear) }
 
   it "adds good topics" do
     send_command("retro :) foo bar")
@@ -39,13 +44,10 @@ describe Lita::Handlers::Retro, lita_handler: true do
   end
 
   it "clears all topics" do
-    allow(Lita::Authorization).to receive(:user_in_group?).with(user, :retro_admins).and_return(
-      true
-    )
     send_command("retro :) something good!")
     send_command("retro :( something bad!", as: bad_user)
     send_command("retro :| something neutral!", as: neutral_user)
-    send_command("retro clear")
+    send_command("retro clear", as: retro_admin)
     send_command("retro list")
     expect(replies.last).to eq("There are no retrospective topics yet.")
   end
