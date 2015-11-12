@@ -4,7 +4,7 @@
 [![Code Climate](https://codeclimate.com/github/jimmycuadra/lita-retro.png)](https://codeclimate.com/github/jimmycuadra/lita-retro)
 [![Coverage Status](https://coveralls.io/repos/jimmycuadra/lita-retro/badge.png)](https://coveralls.io/r/jimmycuadra/lita-retro)
 
-**lita-retro** helps manage topics for regular team retrospective meetings.
+**lita-retro** is a [Lita](https://www.lita.io/) handler that helps manage topics for regular team retrospective meetings.
 
 ## Installation
 
@@ -46,6 +46,8 @@ Lita: Cleared all topics!
 You: Lita retro list
 Lita: There are no retrospective topics yet.
 ```
+
+To add users to the `:retro_admins` authorization group, see the documentation at [http://docs.lita.io/getting-started/usage/#authorization-groups](http://docs.lita.io/getting-started/usage/#authorization-groups)
 
 ## License
 
