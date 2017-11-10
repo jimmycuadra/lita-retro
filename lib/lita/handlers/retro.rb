@@ -35,12 +35,14 @@ module Lita
 
       def list(response)
         topics = [
-          list_type("good"),
-          list_type("bad"),
-          list_type("neutral")
+          list_type("good",response.room.id),
+          list_type("bad",response.room.id),
+          list_type("neutral",response.room.id)
         ].compact
 
         if topics.empty?
+          response.reply(t("no_topics"))
+        elsif topics.inspect == "[" + '"' + '"' + "]" 
           response.reply(t("no_topics"))
         else
           response.reply(topics.join("\n"))
@@ -49,7 +51,7 @@ module Lita
 
       def clear(response)
         %w(good bad neutral).map do |type|
-          redis.smembers(type).each { |id| redis.del("#{type}:#{id}") }
+          redis.smembers("#{type}:#{response.room.id}").each { |id| redis.del("#{type}:#{response.room.id}:#{id}") }
           redis.del(type)
         end
 
@@ -59,13 +61,14 @@ module Lita
       private
 
       def add_type(type, response)
-        redis.sadd("#{type}:#{response.user.id}", response.matches[0][0])
-        redis.sadd("#{type}", response.user.id)
+        redis.sadd("#{type}:#{response.room.id}:#{response.user.id}", response.matches[0][0])
+        redis.sadd("#{type}:#{response.room.id}", response.user.id)
+        redis.sadd("#{type}", response.room.id)
         response.reply(t("added", type: type))
       end
 
-      def list_type(type)
-        user_ids = redis.smembers(type)
+      def list_type(type,room)
+        user_ids = redis.smembers("#{type}:#{room}")
         return if user_ids.empty?
 
         topics = []
@@ -74,7 +77,7 @@ module Lita
           user = User.find_by_id(user_id)
           next unless user
 
-          redis.smembers("#{type}:#{user.id}").each do |topic|
+          redis.smembers("#{type}:#{room}:#{user.id}").each do |topic|
             topics << t("topic", type: type.capitalize, name: user.name, topic: topic)
           end
         end
