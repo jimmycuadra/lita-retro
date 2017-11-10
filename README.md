@@ -18,6 +18,8 @@ gem "lita-retro"
 
 Throughout the week, team members may think of things they'd like to discuss at the next team retro. They can store their topic ideas with Lita and Lita will list all the topics when it comes time to meet and discuss them. Topics can be classified as good, bad, or neutral, signified by a happy face, a sad face, or a straight face, respectively.
 
+Now it's possible each team to have the lita retro at your channel/room
+
 ```
 Carl: Lita retro :) Our new documentation was super useful!
 Lita: Good topic added!
